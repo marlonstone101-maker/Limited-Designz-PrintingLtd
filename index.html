@@ -115,7 +115,7 @@
             <!-- Desktop Navigation Links -->
             <nav class="hidden md:flex items-center gap-6">
                 <a href="#products" class="text-sm font-semibold text-gray-300 hover:text-cyan-400 transition">Products</a>
-                <a href="#order" class="text-sm font-semibold text-gray-300 hover:text-cyan-400 transition">Custom Order</a>
+                <a href="#order" onclick="revealOrderForm()" class="text-sm font-semibold text-gray-300 hover:text-cyan-400 transition">Custom Order</a>
                 <a href="#shipping" class="text-sm font-semibold text-gray-300 hover:text-cyan-400 transition">Shipping</a>
             </nav>
 
@@ -151,7 +151,7 @@
                 <span><i class="fa-solid fa-layer-group text-cyan-400 mr-3"></i> Products Catalog</span>
                 <i class="fa-solid fa-chevron-right text-xs text-gray-500"></i>
             </a>
-            <a href="#order" class="drawer-nav-link flex items-center justify-between p-3 rounded-xl bg-brand-card/50 hover:bg-brand-royal text-sm font-semibold text-white border border-cyan-500/20 transition">
+            <a href="#order" onclick="revealOrderForm()" class="drawer-nav-link flex items-center justify-between p-3 rounded-xl bg-brand-card/50 hover:bg-brand-royal text-sm font-semibold text-white border border-cyan-500/20 transition">
                 <span><i class="fa-solid fa-file-signature text-brand-accent mr-3"></i> Custom Order</span>
                 <i class="fa-solid fa-chevron-right text-xs text-gray-500"></i>
             </a>
@@ -269,7 +269,7 @@
                 Professional vehicle wraps, high-impact banners, embroidery logo stitch, custom t-shirts, and illuminated signs. Engineered in Falmouth, Jamaica with lightning-fast island-wide shipping via Knockford Express.
             </p>
             <div class="flex flex-wrap gap-4 pt-2">
-                <a href="#order" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-400 text-black font-extrabold text-sm glow-btn flex items-center gap-3">
+                <a href="#order" onclick="revealOrderForm()" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-400 text-black font-extrabold text-sm glow-btn flex items-center gap-3">
                     <i class="fa-solid fa-cart-shopping"></i> Order Custom Print Now
                 </a>
                 <a href="#products" class="px-8 py-4 rounded-2xl bg-brand-card hover:bg-brand-royal border border-cyan-500/30 text-white font-bold text-sm transition flex items-center gap-3">
@@ -366,99 +366,102 @@
                 <p class="text-gray-400 text-sm max-w-xl mx-auto">Select your product, make a bank transfer, and upload your payment receipt below to send it directly to the client.</p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Bank Info -->
-                <div class="glass-card p-6 rounded-3xl border border-cyan-500/30 flex flex-col justify-between space-y-6">
-                    <div>
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 rounded-xl bg-brand-accent/20 text-brand-accent flex items-center justify-center font-bold text-lg">
-                                <i class="fa-solid fa-landmark"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-white text-base">Client Bank Details</h3>
-                                <p class="text-xs text-gray-400">Transfer funds prior to submitting</p>
-                            </div>
-                        </div>
-
-                        <div class="space-y-3 text-xs bg-brand-dark/70 p-4 rounded-2xl border border-cyan-500/20">
-                            <div>
-                                <p class="text-gray-400 uppercase font-semibold">Bank Name:</p>
-                                <p class="font-bold text-white text-sm">National Commercial Bank (NCB)</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-400 uppercase font-semibold">Account Name:</p>
-                                <p class="font-bold text-cyan-300 text-sm">Limitless Designz & Printing Ltd</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-400 uppercase font-semibold">Account Number:</p>
-                                <p class="font-bold text-brand-accent text-sm tracking-wider">305 489 112</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-400 uppercase font-semibold">Branch:</p>
-                                <p class="font-bold text-white">Falmouth, Trelawny</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="p-4 rounded-2xl bg-cyan-950/50 border border-cyan-500/20 space-y-2">
-                        <p class="text-xs font-bold text-cyan-400 flex items-center gap-2">
-                            <i class="fa-solid fa-truck-fast"></i> Knockford Express Shipping
-                        </p>
-                        <p class="text-xs text-gray-300">All orders are securely packaged and shipped island-wide via Knockford Express.</p>
-                    </div>
-                </div>
-
-                <!-- Order Checkout Form -->
-                <div class="lg:col-span-2 glass-card p-8 rounded-3xl border border-cyan-500/30">
-                    <form id="customerOrderForm" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-xs font-bold text-gray-300 mb-2">Full Name / Business Name *</label>
-                                <input type="text" id="orderName" required placeholder="e.g. John Doe / Drug Care Pharmacy" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-gray-300 mb-2">Phone Number / WhatsApp *</label>
-                                <input type="tel" id="orderPhone" required placeholder="e.g. (876) 555-0199" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-xs font-bold text-gray-300 mb-2">Select Print Product *</label>
-                                <select id="orderProductSelect" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
-                                    <!-- Populated dynamically -->
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-gray-300 mb-2">Quantity / Dimensions *</label>
-                                <input type="text" id="orderQty" required placeholder="e.g. 500 T-Shirts or 3x6 ft Banner" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
-                            </div>
-                        </div>
-
+            <!-- Hidden Container for Order Form & Bank Info -->
+            <div id="orderFormContainer" class="hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Bank Info -->
+                    <div class="glass-card p-6 rounded-3xl border border-cyan-500/30 flex flex-col justify-between space-y-6">
                         <div>
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Delivery Address (Shipped via Knockford Express) *</label>
-                            <textarea id="orderAddress" rows="2" required placeholder="Enter full delivery parish & address in Jamaica..." class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition"></textarea>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold text-gray-300 mb-2">Upload Payment Receipt Screenshot/Image *</label>
-                            <div class="relative border-2 border-dashed border-cyan-500/40 rounded-2xl p-6 text-center hover:border-cyan-400 transition bg-brand-dark/50">
-                                <input type="file" id="orderReceiptFile" accept="image/*,application/pdf" required class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
-                                <div id="fileUploadPrompt" class="space-y-2">
-                                    <i class="fa-solid fa-cloud-arrow-up text-3xl text-cyan-400"></i>
-                                    <p class="text-xs text-gray-300"><span class="font-bold text-cyan-400">Click to upload image</span> or receipt file</p>
-                                    <p class="text-[10px] text-gray-500">PNG, JPG, PDF up to 10MB</p>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-brand-accent/20 text-brand-accent flex items-center justify-center font-bold text-lg">
+                                    <i class="fa-solid fa-landmark"></i>
                                 </div>
-                                <div id="fileSelectedDisplay" class="hidden text-xs text-brand-accent font-bold flex items-center justify-center gap-2">
-                                    <i class="fa-solid fa-circle-check text-green-400"></i> <span id="fileNameText">Receipt attached successfully</span>
+                                <div>
+                                    <h3 class="font-bold text-white text-base">Client Bank Details</h3>
+                                    <p class="text-xs text-gray-400">Transfer funds prior to submitting</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3 text-xs bg-brand-dark/70 p-4 rounded-2xl border border-cyan-500/20">
+                                <div>
+                                    <p class="text-gray-400 uppercase font-semibold">Bank Name:</p>
+                                    <p class="font-bold text-white text-sm">National Commercial Bank (NCB)</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 uppercase font-semibold">Account Name:</p>
+                                    <p class="font-bold text-cyan-300 text-sm">Limitless Designz & Printing Ltd</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 uppercase font-semibold">Account Number:</p>
+                                    <p class="font-bold text-brand-accent text-sm tracking-wider">305 489 112</p>
+                                </div>
+                                <div>
+                                    <p class="text-gray-400 uppercase font-semibold">Branch:</p>
+                                    <p class="font-bold text-white">Falmouth, Trelawny</p>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-400 text-black font-black text-base glow-btn flex items-center justify-center gap-3">
-                            <i class="fa-solid fa-paper-plane"></i> Submit Order & Send Receipt 
-                        </button>
-                    </form>
+                        <div class="p-4 rounded-2xl bg-cyan-950/50 border border-cyan-500/20 space-y-2">
+                            <p class="text-xs font-bold text-cyan-400 flex items-center gap-2">
+                                <i class="fa-solid fa-truck-fast"></i> Knockford Express Shipping
+                            </p>
+                            <p class="text-xs text-gray-300">All orders are securely packaged and shipped island-wide via Knockford Express.</p>
+                        </div>
+                    </div>
+
+                    <!-- Order Checkout Form -->
+                    <div class="lg:col-span-2 glass-card p-8 rounded-3xl border border-cyan-500/30">
+                        <form id="customerOrderForm" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-300 mb-2">Full Name / Business Name *</label>
+                                    <input type="text" id="orderName" required placeholder="e.g. John Doe / Drug Care Pharmacy" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-300 mb-2">Phone Number / WhatsApp *</label>
+                                    <input type="tel" id="orderPhone" required placeholder="e.g. (876) 555-0199" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-300 mb-2">Select Print Product *</label>
+                                    <select id="orderProductSelect" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
+                                        <!-- Populated dynamically -->
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-300 mb-2">Quantity / Dimensions *</label>
+                                    <input type="text" id="orderQty" required placeholder="e.g. 500 T-Shirts or 3x6 ft Banner" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 mb-2">Delivery Address (Shipped via Knockford Express) *</label>
+                                <textarea id="orderAddress" rows="2" required placeholder="Enter full delivery parish & address in Jamaica..." class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 mb-2">Upload Payment Receipt Screenshot/Image *</label>
+                                <div class="relative border-2 border-dashed border-cyan-500/40 rounded-2xl p-6 text-center hover:border-cyan-400 transition bg-brand-dark/50">
+                                    <input type="file" id="orderReceiptFile" accept="image/*,application/pdf" required class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                                    <div id="fileUploadPrompt" class="space-y-2">
+                                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-cyan-400"></i>
+                                        <p class="text-xs text-gray-300"><span class="font-bold text-cyan-400">Click to upload image</span> or receipt file</p>
+                                        <p class="text-[10px] text-gray-500">PNG, JPG, PDF up to 10MB</p>
+                                    </div>
+                                    <div id="fileSelectedDisplay" class="hidden text-xs text-brand-accent font-bold flex items-center justify-center gap-2">
+                                        <i class="fa-solid fa-circle-check text-green-400"></i> <span id="fileNameText">Receipt attached successfully</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-400 text-black font-black text-base glow-btn flex items-center justify-center gap-3">
+                                <i class="fa-solid fa-paper-plane"></i> Submit Order & Send Receipt 
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -522,6 +525,14 @@
 
     <!-- Application JavaScript Logic -->
     <script>
+        // Helper function to show form when requested
+        function revealOrderForm() {
+            const container = document.getElementById('orderFormContainer');
+            if (container) {
+                container.classList.remove('hidden');
+            }
+        }
+
         // Generate initial default dataset holding up to 10 images per category
         function generateInitialProducts() {
             const categories = [
@@ -700,6 +711,7 @@
         };
 
         window.selectProductForOrder = function(prodName) {
+            revealOrderForm();
             document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
             const selectEl = document.getElementById('orderProductSelect');
             for (let i = 0; i < selectEl.options.length; i++) {
