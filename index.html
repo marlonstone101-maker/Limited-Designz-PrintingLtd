@@ -227,7 +227,7 @@
                 <div id="adminProductsSection" class="space-y-4">
                     <div class="glass-card p-4 rounded-2xl space-y-3">
                         <h3 class="font-bold text-xs text-white flex items-center gap-2">
-                            <i class="fa-solid fa-plus-circle text-brand-red"></i> Add Image to Category (Max 10)
+                            <i class="fa-solid fa-plus-circle text-brand-red"></i> Add Image to Category
                         </h3>
                         <form id="addProductForm" class="space-y-3">
                             <div>
@@ -241,11 +241,11 @@
                             <div>
                                 <label class="block text-[10px] uppercase font-bold text-white mb-1">Category Target</label>
                                 <select id="newProdCategory" class="w-full bg-brand-dark border border-white/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-white">
-                                    <option value="Vehicle Wraps">Vehicle Wraps (Max 10)</option>
-                                    <option value="Logo Stitch">Logo Stitch & Embroidery (Max 10)</option>
-                                    <option value="T-Shirts">T-Shirts & Apparel (Max 10)</option>
-                                    <option value="Signs">Signs & Neon (Max 10)</option>
-                                    <option value="Prints">Prints & Banners (Max 10)</option>
+                                    <option value="Vehicle Wraps">Vehicle Wraps</option>
+                                    <option value="Logo Stitch">Logo Stitch & Embroidery</option>
+                                    <option value="T-Shirts">T-Shirts & Apparel</option>
+                                    <option value="Signs">Signs & Neon</option>
+                                    <option value="Prints">Prints & Banners</option>
                                 </select>
                             </div>
                             <div>
@@ -364,7 +364,7 @@
     <section id="products" class="px-4 lg:px-12 py-16 border-t-2 border-brand-navy/20 bg-brand-navy text-white">
         <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-6 gap-4">
             <div>
-                <span class="text-xs font-bold text-white/80 tracking-widest uppercase">Explore Up To 10 Images Per Section</span>
+                <span class="text-xs font-bold text-white/80 tracking-widest uppercase">Explore Product Catalog</span>
                 <h2 class="text-3xl lg:text-4xl font-extrabold text-white mt-1">
                     PRINTING <span class="text-brand-red">CATALOG</span>
                 </h2>
@@ -384,11 +384,11 @@
         <!-- Category Selector Tabs -->
         <div class="flex flex-wrap gap-2 mb-6">
             <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-red text-white border border-white transition" data-cat="All">All Categories</button>
-            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Vehicle Wraps">Vehicle Wraps (10)</button>
-            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Logo Stitch">Logo Stitch (10)</button>
-            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="T-Shirts">T-Shirts (10)</button>
-            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Signs">Signs (10)</button>
-            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Prints">Prints (10)</button>
+            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Vehicle Wraps">Vehicle Wraps</button>
+            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Logo Stitch">Logo Stitch</button>
+            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="T-Shirts">T-Shirts</button>
+            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Signs">Signs</button>
+            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Prints">Prints</button>
         </div>
 
         <!-- Horizontal Smooth Scrolling Container -->
@@ -611,15 +611,27 @@
         let currentActiveCategory = 'All';
 
         function saveProducts() {
-            localStorage.setItem('limitless_products', JSON.stringify(products));
+            try {
+                localStorage.setItem('limitless_products', JSON.stringify(products));
+            } catch (err) {
+                console.warn('LocalStorage quota limit reached for images, maintaining in-memory updates.');
+            }
         }
 
         function saveOrders() {
-            localStorage.setItem('limitless_orders', JSON.stringify(orders));
+            try {
+                localStorage.setItem('limitless_orders', JSON.stringify(orders));
+            } catch (err) {
+                console.warn('LocalStorage quota limit reached.');
+            }
         }
 
         function saveFeatured() {
-            localStorage.setItem('limitless_featured', JSON.stringify(featuredData));
+            try {
+                localStorage.setItem('limitless_featured', JSON.stringify(featuredData));
+            } catch (err) {
+                console.warn('LocalStorage quota limit reached.');
+            }
         }
 
         // Three.js 3D Background Particle Flare Animation
@@ -936,12 +948,6 @@
                 e.preventDefault();
                 const fileInput = document.getElementById('newProdImgFile');
                 const category = document.getElementById('newProdCategory').value;
-
-                const categoryCount = products.filter(p => p.category === category).length;
-                if (categoryCount >= 10) {
-                    showModal('Category Limit Reached', `The ${category} category already holds 10 images. Please delete an older product in that category first.`);
-                    return;
-                }
 
                 if (fileInput.files && fileInput.files[0]) {
                     const reader = new FileReader();
