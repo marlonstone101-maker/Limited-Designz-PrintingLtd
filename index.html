@@ -18,12 +18,14 @@
                 extend: {
                     colors: {
                         brand: {
-                            dark: '#0B192C',
-                            royal: '#1E3E62',
-                            card: '#132742',
-                            electric: '#00F0FF',
-                            accent: '#FFD700',
-                            orange: '#FF6B00'
+                            dark: '#0018CD',      /* Matched to Logo Blue Base */
+                            navy: '#0020FF',      /* Primary Logo Vibrant Blue */
+                            royal: '#0B29E3',     /* Lighter blue for cards */
+                            card: '#0821B8',      /* Card background blue */
+                            red: '#E50914',
+                            brightRed: '#FF2E93',
+                            yellow: '#FFD700',
+                            flare: '#FFC700'
                         }
                     },
                     fontFamily: {
@@ -35,11 +37,49 @@
     </script>
     <style>
         body {
-            background-color: #0B192C;
-            color: #F8FAFC;
+            /* Background changed to Yellow */
+            background-color: #FFD700;
+            color: #0020FF;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
+            position: relative;
         }
+
+        /* Ambient Glow Effects adjusted for contrast */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(0, 32, 255, 0.25) 0%, rgba(229, 9, 20, 0.2) 40%, rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(60px);
+            animation: pulseFlare 8s ease-in-out infinite alternate;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -10%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(229, 9, 20, 0.25) 0%, rgba(0, 32, 255, 0.2) 50%, rgba(0, 0, 0, 0) 80%);
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(80px);
+            animation: pulseFlare 12s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes pulseFlare {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.8; }
+            50% { transform: scale(1.15) translate(30px, -20px); opacity: 1; }
+            100% { transform: scale(0.95) translate(-20px, 30px); opacity: 0.7; }
+        }
+
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -55,14 +95,14 @@
             padding: 1rem 0.5rem;
         }
         .glass-card {
-            background: rgba(19, 39, 66, 0.75);
+            background: rgba(8, 33, 184, 0.9);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 240, 255, 0.25);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border: 2px solid #FFFFFF;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
         }
         .glass-card:hover {
-            border-color: rgba(0, 240, 255, 0.7);
-            box-shadow: 0 15px 40px rgba(0, 240, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-color: #E50914;
+            box-shadow: 0 15px 40px rgba(229, 9, 20, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.6);
         }
         .perspective-container {
             perspective: 1000px;
@@ -77,14 +117,14 @@
             z-index: -1;
         }
         .glow-text {
-            text-shadow: 0 0 25px rgba(0, 240, 255, 0.6);
+            text-shadow: 0 0 25px rgba(229, 9, 20, 0.7);
         }
         .glow-btn {
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
             transition: all 0.3s ease;
         }
         .glow-btn:hover {
-            box-shadow: 0 0 35px rgba(0, 240, 255, 0.8);
+            box-shadow: 0 0 30px rgba(229, 9, 20, 0.75);
             transform: translateY(-2px);
         }
         .drawer {
@@ -92,35 +132,35 @@
         }
     </style>
 </head>
-<body class="relative min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
+<body class="relative min-h-screen flex flex-col selection:bg-brand-red selection:text-white">
 
     <!-- 3D Background Canvas -->
     <canvas id="bgCanvas" class="canvas-bg"></canvas>
 
     <!-- Navigation Header -->
-    <header class="sticky top-0 z-40 bg-brand-dark/90 backdrop-blur-md border-b border-cyan-500/20 px-4 lg:px-12 py-4 flex items-center justify-between">
+    <header class="sticky top-0 z-40 bg-gradient-to-r from-brand-navy via-brand-dark to-brand-card shadow-xl border-b-4 border-brand-red px-4 lg:px-12 py-4 flex items-center justify-between">
         <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-full border-2 border-brand-accent overflow-hidden shadow-lg shadow-cyan-500/30 bg-brand-card flex items-center justify-center shrink-0">
-                <img src="logo.png" onerror="this.src='https://placehold.co/100x100/132742/00f0ff?text=LD'" alt="Logo" class="w-full h-full object-cover">
+            <div class="w-11 h-11 rounded-full border-2 border-white overflow-hidden shadow-md bg-brand-navy flex items-center justify-center shrink-0">
+                <img src="logo.png" onerror="this.src='https://placehold.co/100x100/0020FF/FFFFFF?text=LD'" alt="Logo" class="w-full h-full object-cover">
             </div>
             <div>
                 <h1 class="font-extrabold text-sm sm:text-lg tracking-wider text-white flex items-center gap-2">
-                    LIMITLESS <span class="text-cyan-400 text-xs px-2 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/40 hidden sm:inline-block">DESIGNZ & PRINTING</span>
+                    LIMITLESS <span class="text-white text-xs px-2 py-0.5 rounded-full bg-brand-red font-bold hidden sm:inline-block">DESIGNZ & PRINTING</span>
                 </h1>
-                <p class="text-[11px] text-brand-accent font-medium">Falmouth, Jamaica • (876) 617-4659</p>
+                <p class="text-[11px] text-white font-bold">Falmouth, Jamaica • (876) 617-4659</p>
             </div>
         </div>
 
         <div class="flex items-center gap-4">
             <!-- Desktop Navigation Links -->
             <nav class="hidden md:flex items-center gap-6">
-                <a href="#products" class="text-sm font-semibold text-gray-300 hover:text-cyan-400 transition">Products</a>
-                <a href="#order" onclick="revealOrderForm()" class="text-sm font-semibold text-gray-300 hover:text-cyan-400 transition">Custom Order</a>
-                <a href="#shipping" class="text-sm font-semibold text-gray-300 hover:text-cyan-400 transition">Shipping</a>
+                <a href="#products" class="text-sm font-bold text-white hover:text-brand-red transition">Products</a>
+                <a href="#order" onclick="revealOrderForm()" class="text-sm font-bold text-white hover:text-brand-red transition">Custom Order</a>
+                <a href="#shipping" class="text-sm font-bold text-white hover:text-brand-red transition">Shipping</a>
             </nav>
 
-            <!-- 3-Lines Menu Trigger (Opens Mobile Nav & Admin Portal Access) -->
-            <button id="hamburgerBtn" class="flex items-center justify-center w-11 h-11 rounded-xl bg-brand-royal/60 border border-cyan-500/40 text-cyan-400 hover:text-white hover:bg-cyan-500/20 transition shadow-lg focus:outline-none" title="Menu">
+            <!-- 3-Lines Menu Trigger -->
+            <button id="hamburgerBtn" class="flex items-center justify-center w-11 h-11 rounded-xl bg-brand-red border border-white text-white hover:bg-white hover:text-brand-navy transition shadow-lg focus:outline-none" title="Menu">
                 <i class="fa-solid fa-bars text-lg"></i>
             </button>
         </div>
@@ -128,79 +168,79 @@
 
     <!-- Mobile Drawer / Navigation & Admin Menu -->
     <div id="drawerOverlay" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden opacity-0 transition-opacity duration-300"></div>
-    <aside id="drawerMenu" class="fixed top-0 right-0 bottom-0 w-80 sm:w-96 bg-brand-dark border-l border-cyan-500/40 z-50 drawer translate-x-full p-6 flex flex-col shadow-2xl overflow-y-auto">
-        <div class="flex items-center justify-between pb-6 border-b border-cyan-500/20">
+    <aside id="drawerMenu" class="fixed top-0 right-0 bottom-0 w-80 sm:w-96 bg-brand-navy border-l-4 border-brand-red z-50 drawer translate-x-full p-6 flex flex-col shadow-2xl overflow-y-auto">
+        <div class="flex items-center justify-between pb-6 border-b border-white/30">
             <div class="flex items-center gap-3">
-                <div class="p-2 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+                <div class="p-2 rounded-xl bg-brand-red text-white border border-white">
                     <i class="fa-solid fa-compass text-lg"></i>
                 </div>
                 <div>
                     <h2 class="font-bold text-base text-white">Menu & Portal</h2>
-                    <p class="text-xs text-gray-400">Limitless Designz & Printing</p>
+                    <p class="text-xs text-white/80">Limitless Designz & Printing</p>
                 </div>
             </div>
-            <button id="closeDrawerBtn" class="text-gray-400 hover:text-white p-2 text-xl focus:outline-none">
+            <button id="closeDrawerBtn" class="text-white hover:text-brand-red p-2 text-xl focus:outline-none">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
 
-        <!-- Quick Navigation Links Visible on Mobile & Tablet -->
-        <div class="py-6 border-b border-cyan-500/20 space-y-3">
-            <p class="text-[10px] uppercase font-bold text-cyan-400 tracking-wider">Quick Navigation</p>
-            <a href="#products" class="drawer-nav-link flex items-center justify-between p-3 rounded-xl bg-brand-card/50 hover:bg-brand-royal text-sm font-semibold text-white border border-cyan-500/20 transition">
-                <span><i class="fa-solid fa-layer-group text-cyan-400 mr-3"></i> Products Catalog</span>
-                <i class="fa-solid fa-chevron-right text-xs text-gray-500"></i>
+        <!-- Quick Navigation Links -->
+        <div class="py-6 border-b border-white/30 space-y-3">
+            <p class="text-[10px] uppercase font-bold text-white tracking-wider">Quick Navigation</p>
+            <a href="#products" class="drawer-nav-link flex items-center justify-between p-3 rounded-xl bg-brand-card hover:bg-brand-royal text-sm font-semibold text-white border border-white/40 transition">
+                <span><i class="fa-solid fa-layer-group text-white mr-3"></i> Products Catalog</span>
+                <i class="fa-solid fa-chevron-right text-xs text-white/70"></i>
             </a>
-            <a href="#order" onclick="revealOrderForm()" class="drawer-nav-link flex items-center justify-between p-3 rounded-xl bg-brand-card/50 hover:bg-brand-royal text-sm font-semibold text-white border border-cyan-500/20 transition">
-                <span><i class="fa-solid fa-file-signature text-brand-accent mr-3"></i> Custom Order</span>
-                <i class="fa-solid fa-chevron-right text-xs text-gray-500"></i>
+            <a href="#order" onclick="revealOrderForm()" class="drawer-nav-link flex items-center justify-between p-3 rounded-xl bg-brand-card hover:bg-brand-royal text-sm font-semibold text-white border border-white/40 transition">
+                <span><i class="fa-solid fa-file-signature text-white mr-3"></i> Custom Order</span>
+                <i class="fa-solid fa-chevron-right text-xs text-white/70"></i>
             </a>
-            <a href="#shipping" class="drawer-nav-link flex items-center justify-between p-3 rounded-xl bg-brand-card/50 hover:bg-brand-royal text-sm font-semibold text-white border border-cyan-500/20 transition">
-                <span><i class="fa-solid fa-truck-fast text-brand-orange mr-3"></i> Shipping Info</span>
-                <i class="fa-solid fa-chevron-right text-xs text-gray-500"></i>
+            <a href="#shipping" class="drawer-nav-link flex items-center justify-between p-3 rounded-xl bg-brand-card hover:bg-brand-royal text-sm font-semibold text-white border border-white/40 transition">
+                <span><i class="fa-solid fa-truck-fast text-white mr-3"></i> Shipping Info</span>
+                <i class="fa-solid fa-chevron-right text-xs text-white/70"></i>
             </a>
         </div>
 
         <!-- Admin Auth & Management Portal -->
         <div class="pt-6 flex-1 flex flex-col">
-            <div id="adminAuthSection" class="p-4 rounded-2xl bg-brand-card border border-cyan-500/30 space-y-3">
-                <div class="flex items-center gap-2 text-cyan-300 font-bold text-xs uppercase tracking-wider">
-                    <i class="fa-solid fa-user-shield text-brand-accent"></i>Admin Access
+            <div id="adminAuthSection" class="p-4 rounded-2xl bg-brand-card border-2 border-white space-y-3">
+                <div class="flex items-center gap-2 text-white font-bold text-xs uppercase tracking-wider">
+                    <i class="fa-solid fa-user-shield text-brand-red"></i>Admin Access
                 </div>
-                <p class="text-xs text-gray-400">Enter passcode to upload images & manage store (Default: <strong class="text-brand-accent">1234</strong>)</p>
+                <p class="text-xs text-white/90">Enter passcode to upload images & manage store</p>
                 <div class="flex flex-col sm:flex-row gap-2 w-full">
-                    <input type="password" id="adminPasscode" placeholder="Passcode" class="min-w-0 flex-1 bg-brand-dark border border-cyan-500/30 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
-                    <button id="adminLoginBtn" class="shrink-0 px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs rounded-xl transition">Unlock</button>
+                    <input type="password" id="adminPasscode" placeholder="Passcode" class="min-w-0 flex-1 bg-brand-dark border border-white/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-white">
+                    <button id="adminLoginBtn" class="shrink-0 px-4 py-2 bg-brand-red hover:bg-red-600 text-white font-bold text-xs rounded-xl transition border border-white">Unlock</button>
                 </div>
-                <p id="authErrorMsg" class="text-red-400 text-[10px] hidden"><i class="fa-solid fa-triangle-exclamation"></i> Incorrect passcode. Try 1234.</p>
+                <p id="authErrorMsg" class="text-red-200 text-[10px] hidden"><i class="fa-solid fa-triangle-exclamation"></i> Incorrect passcode.</p>
             </div>
 
             <!-- Admin Unlocked Controls -->
             <div id="adminMainContent" class="hidden flex-1 flex flex-col gap-4 mt-4">
-                <div class="flex gap-2 bg-brand-card p-1 rounded-xl border border-cyan-500/20">
-                    <button id="tabProductsBtn" class="flex-1 py-2 text-xs font-bold rounded-lg bg-cyan-500 text-black transition shadow">Add Product</button>
-                    <button id="tabFeaturedBtn" class="flex-1 py-2 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition">Featured</button>
-                    <button id="tabOrdersBtn" class="flex-1 py-2 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition">Orders</button>
+                <div class="flex gap-2 bg-brand-card p-1 rounded-xl border border-white/30">
+                    <button id="tabProductsBtn" class="flex-1 py-2 text-xs font-bold rounded-lg bg-brand-red text-white transition shadow">Add Product</button>
+                    <button id="tabFeaturedBtn" class="flex-1 py-2 text-xs font-bold rounded-lg text-white/80 hover:text-white transition">Featured</button>
+                    <button id="tabOrdersBtn" class="flex-1 py-2 text-xs font-bold rounded-lg text-white/80 hover:text-white transition">Orders</button>
                 </div>
 
                 <!-- 1. Upload Product Section -->
                 <div id="adminProductsSection" class="space-y-4">
-                    <div class="glass-card p-4 rounded-2xl border border-cyan-500/30 space-y-3">
-                        <h3 class="font-bold text-xs text-cyan-300 flex items-center gap-2">
-                            <i class="fa-solid fa-plus-circle"></i> Add Image to Category (Max 10)
+                    <div class="glass-card p-4 rounded-2xl space-y-3">
+                        <h3 class="font-bold text-xs text-white flex items-center gap-2">
+                            <i class="fa-solid fa-plus-circle text-brand-red"></i> Add Image to Category (Max 10)
                         </h3>
                         <form id="addProductForm" class="space-y-3">
                             <div>
-                                <label class="block text-[10px] uppercase font-bold text-gray-300 mb-1">Product Title</label>
-                                <input type="text" id="newProdName" required placeholder="e.g. Wrap Design #1" class="w-full bg-brand-dark border border-cyan-500/30 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+                                <label class="block text-[10px] uppercase font-bold text-white mb-1">Product Title</label>
+                                <input type="text" id="newProdName" required placeholder="e.g. Wrap Design #1" class="w-full bg-brand-dark border border-white/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-white">
                             </div>
                             <div>
-                                <label class="block text-[10px] uppercase font-bold text-gray-300 mb-1">Price (JMD / USD)</label>
-                                <input type="text" id="newProdPrice" required placeholder="e.g. $25,000 JMD" class="w-full bg-brand-dark border border-cyan-500/30 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+                                <label class="block text-[10px] uppercase font-bold text-white mb-1">Price (JMD / USD)</label>
+                                <input type="text" id="newProdPrice" required placeholder="e.g. $25,000 JMD" class="w-full bg-brand-dark border border-white/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-white">
                             </div>
                             <div>
-                                <label class="block text-[10px] uppercase font-bold text-gray-300 mb-1">Category Target</label>
-                                <select id="newProdCategory" class="w-full bg-brand-dark border border-cyan-500/30 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+                                <label class="block text-[10px] uppercase font-bold text-white mb-1">Category Target</label>
+                                <select id="newProdCategory" class="w-full bg-brand-dark border border-white/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-white">
                                     <option value="Vehicle Wraps">Vehicle Wraps (Max 10)</option>
                                     <option value="Logo Stitch">Logo Stitch & Embroidery (Max 10)</option>
                                     <option value="T-Shirts">T-Shirts & Apparel (Max 10)</option>
@@ -209,38 +249,38 @@
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-[10px] uppercase font-bold text-gray-300 mb-1">Upload Image File (Access Direct)</label>
-                                <input type="file" id="newProdImgFile" accept="image/*" required class="w-full bg-brand-dark border border-cyan-500/30 rounded-xl px-2 py-1.5 text-xs text-gray-300 focus:outline-none focus:border-cyan-400">
+                                <label class="block text-[10px] uppercase font-bold text-white mb-1">Upload Image File (Access Direct)</label>
+                                <input type="file" id="newProdImgFile" accept="image/*" required class="w-full bg-brand-dark border border-white/40 rounded-xl px-2 py-1.5 text-xs text-white focus:outline-none focus:border-white">
                             </div>
-                            <button type="submit" class="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs transition shadow-lg">
+                            <button type="submit" class="w-full py-2.5 rounded-xl bg-brand-red hover:bg-red-600 text-white font-bold text-xs transition shadow-lg border border-white">
                                 <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Upload & Publish
                             </button>
                         </form>
                     </div>
 
                     <div>
-                        <h3 class="font-bold text-xs text-gray-400 uppercase tracking-wider mb-2">Manage Store Catalog</h3>
+                        <h3 class="font-bold text-xs text-white uppercase tracking-wider mb-2">Manage Store Catalog</h3>
                         <div id="adminProductList" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
                     </div>
                 </div>
 
                 <!-- 2. Update Featured Section Image -->
                 <div id="adminFeaturedSection" class="hidden space-y-4">
-                    <div class="glass-card p-4 rounded-2xl border border-cyan-500/30 space-y-3">
-                        <h3 class="font-bold text-xs text-brand-accent flex items-center gap-2">
-                            <i class="fa-solid fa-star"></i> Change Hero Featured Image
+                    <div class="glass-card p-4 rounded-2xl space-y-3">
+                        <h3 class="font-bold text-xs text-white flex items-center gap-2">
+                            <i class="fa-solid fa-star text-brand-red"></i> Change Hero Featured Image
                         </h3>
-                        <p class="text-[11px] text-gray-400">Upload a custom image to display prominently in the top Hero Featured section.</p>
+                        <p class="text-[11px] text-white/80">Upload a custom image to display prominently in the top Hero Featured section.</p>
                         <form id="updateFeaturedForm" class="space-y-3">
                             <div>
-                                <label class="block text-[10px] uppercase font-bold text-gray-300 mb-1">Featured Card Title</label>
-                                <input type="text" id="featuredTitleInput" placeholder="e.g. Vehicle Wraps & Banners" class="w-full bg-brand-dark border border-cyan-500/30 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+                                <label class="block text-[10px] uppercase font-bold text-white mb-1">Featured Card Title</label>
+                                <input type="text" id="featuredTitleInput" placeholder="e.g. Vehicle Wraps & Banners" class="w-full bg-brand-dark border border-white/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-white">
                             </div>
                             <div>
-                                <label class="block text-[10px] uppercase font-bold text-gray-300 mb-1">Upload Physical Image File</label>
-                                <input type="file" id="featuredImgFile" accept="image/*" required class="w-full bg-brand-dark border border-cyan-500/30 rounded-xl px-2 py-1.5 text-xs text-gray-300 focus:outline-none focus:border-cyan-400">
+                                <label class="block text-[10px] uppercase font-bold text-white mb-1">Upload Physical Image File</label>
+                                <input type="file" id="featuredImgFile" accept="image/*" required class="w-full bg-brand-dark border border-white/40 rounded-xl px-2 py-1.5 text-xs text-white focus:outline-none focus:border-white">
                             </div>
-                            <button type="submit" class="w-full py-2.5 rounded-xl bg-brand-accent hover:bg-yellow-400 text-black font-bold text-xs transition shadow-lg">
+                            <button type="submit" class="w-full py-2.5 rounded-xl bg-brand-red hover:bg-red-600 text-white font-bold text-xs transition shadow-lg border border-white">
                                 <i class="fa-solid fa-image mr-1"></i> Update Featured Showcase
                             </button>
                         </form>
@@ -249,7 +289,7 @@
 
                 <!-- 3. Orders Section -->
                 <div id="adminOrdersSection" class="hidden space-y-4">
-                    <h3 class="font-bold text-xs text-gray-400 uppercase tracking-wider">Customer Orders & Receipts</h3>
+                    <h3 class="font-bold text-xs text-white uppercase tracking-wider">Customer Orders & Receipts</h3>
                     <div id="adminOrdersList" class="space-y-2 max-h-60 overflow-y-auto pr-1"></div>
                 </div>
             </div>
@@ -259,38 +299,38 @@
     <!-- Hero Section -->
     <section class="relative px-4 lg:px-12 py-12 lg:py-20 flex flex-col lg:flex-row items-center justify-between gap-12 overflow-hidden">
         <div class="max-w-2xl z-10 space-y-6">
-            <a href="https://www.instagram.com/limitlessdesignzandprinting" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-cyan-400 hover:text-cyan-300 hover:border-cyan-400 transition hover:scale-105 duration-300 text-xs font-bold">
-                <i class="fa-brands fa-instagram text-brand-accent"></i> @limitlessdesignzandprinting
+            <a href="https://www.instagram.com/limitlessdesignzandprinting" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-navy border-2 border-white text-white hover:bg-brand-red transition hover:scale-105 duration-300 text-xs font-bold shadow-lg">
+                <i class="fa-brands fa-instagram text-brand-red"></i> @limitlessdesignzandprinting
             </a>
-            <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-none text-white">
-                YOUR ONE STOP SHOP FOR <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-brand-accent glow-text">PRINTING</span>
+            <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-none text-brand-navy">
+                YOUR ONE STOP SHOP FOR <span class="text-brand-red glow-text">PRINTING</span>
             </h1>
-            <p class="text-gray-300 text-base sm:text-lg leading-relaxed font-light">
-                Professional vehicle wraps, high-impact banners, embroidery logo stitch, custom t-shirts, and illuminated signs. Engineered in Falmouth, Jamaica with lightning-fast island-wide shipping via Knockford Express.
+            <p class="text-brand-navy text-base sm:text-lg leading-relaxed font-semibold">
+                Professional vehicle wraps, high-impact banners, embroidery logo stitch, custom t-shirts, and illuminated signs. Engineered in Falmouth, Jamaica with lightning-fast island-wide shipping via Knutskford Express.
             </p>
             <div class="flex flex-wrap gap-4 pt-2">
-                <a href="#order" onclick="revealOrderForm()" class="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-400 text-black font-extrabold text-sm glow-btn flex items-center gap-3">
+                <a href="#order" onclick="revealOrderForm()" class="px-8 py-4 rounded-2xl bg-brand-red hover:bg-red-600 text-white font-extrabold text-sm glow-btn flex items-center gap-3 border-2 border-white">
                     <i class="fa-solid fa-cart-shopping"></i> Order Custom Print Now
                 </a>
-                <a href="#products" class="px-8 py-4 rounded-2xl bg-brand-card hover:bg-brand-royal border border-cyan-500/30 text-white font-bold text-sm transition flex items-center gap-3">
-                    <i class="fa-solid fa-eye text-cyan-400"></i> Explore Catalog Grid
+                <a href="#products" class="px-8 py-4 rounded-2xl bg-brand-navy hover:bg-brand-royal text-white font-bold text-sm transition flex items-center gap-3 border-2 border-white shadow-lg">
+                    <i class="fa-solid fa-eye text-brand-red"></i> Explore Catalog Grid
                 </a>
             </div>
 
             <!-- Contact Information Bar -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t border-cyan-500/20">
-                <a href="tel:8766174659" class="flex items-center gap-3 p-3 rounded-xl bg-brand-card/50 hover:bg-brand-royal border border-cyan-500/20 hover:border-cyan-400/50 transition">
-                    <div class="text-cyan-400 text-lg"><i class="fa-solid fa-phone-volume"></i></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-4 border-t-2 border-brand-navy/20">
+                <a href="tel:8766174659" class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-md border-2 border-brand-navy hover:border-brand-red transition">
+                    <div class="text-brand-red text-lg"><i class="fa-solid fa-phone-volume"></i></div>
                     <div>
-                        <p class="text-[10px] text-gray-400 uppercase font-bold">Call Us</p>
-                        <p class="text-xs font-bold text-white">(876) 617-4659</p>
+                        <p class="text-[10px] text-brand-navy uppercase font-bold">Call Us</p>
+                        <p class="text-xs font-bold text-brand-navy">(876) 617-4659</p>
                     </div>
                 </a>
-                <a href="https://wa.me/18763702108" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-xl bg-brand-card/50 hover:bg-brand-royal border border-cyan-500/20 hover:border-cyan-400/50 transition">
-                    <div class="text-cyan-400 text-lg"><i class="fa-brands fa-whatsapp"></i></div>
+                <a href="https://wa.me/18763702108" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 p-3 rounded-xl bg-white shadow-md border-2 border-brand-navy hover:border-brand-red transition">
+                    <div class="text-red-600 text-lg"><i class="fa-brands fa-whatsapp"></i></div>
                     <div>
-                        <p class="text-[10px] text-gray-400 uppercase font-bold">WhatsApp Lines</p>
-                        <p class="text-xs font-bold text-white">(876) 370-2108 / 590-6764</p>
+                        <p class="text-[10px] text-brand-navy uppercase font-bold">WhatsApp Lines</p>
+                        <p class="text-xs font-bold text-brand-navy">(876) 370-2108 / 590-6764</p>
                     </div>
                 </a>
             </div>
@@ -298,44 +338,44 @@
 
         <!-- 3D Holographic Card Showcase (Featured Section) -->
         <div class="w-full lg:w-1/2 flex justify-center perspective-container z-10">
-            <div class="relative w-full max-w-md h-96 rounded-3xl glass-card p-6 flex flex-col justify-between border-2 border-cyan-500/40 shadow-2xl">
-                <div class="absolute -top-4 -right-4 px-4 py-1 rounded-full bg-gradient-to-r from-brand-orange to-brand-accent text-black font-black text-xs shadow-lg uppercase tracking-wider z-20">
-                    Featured Showcase 🔥
+            <div class="relative w-full max-w-md h-96 rounded-3xl glass-card p-6 flex flex-col justify-between shadow-2xl">
+                <div class="absolute -top-4 -right-4 px-4 py-1 rounded-full bg-brand-red text-white font-black text-xs shadow-lg uppercase tracking-wider z-20 border border-white">
+                    Featured Showcase 
                 </div>
-                <div class="w-full h-52 rounded-2xl overflow-hidden bg-brand-royal border border-cyan-500/30 relative cursor-pointer" id="featuredImgWrapper">
-                    <img id="featuredImgDisplay" src="https://placehold.co/600x400/132742/00f0ff?text=Featured+Showcase" alt="Featured Showcase" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
+                <div class="w-full h-52 rounded-2xl overflow-hidden bg-brand-royal border-2 border-white relative cursor-pointer" id="featuredImgWrapper">
+                    <img id="featuredImgDisplay" src="https://placehold.co/600x400/0020FF/FFFFFF?text=Featured+Showcase" alt="Featured Showcase" class="w-full h-full object-cover transform hover:scale-105 transition duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent flex items-end p-3">
-                        <span class="text-[11px] text-cyan-300 font-bold"><i class="fa-solid fa-magnifying-glass-plus mr-1"></i> Click to Zoom</span>
+                        <span class="text-[11px] text-white font-bold"><i class="fa-solid fa-magnifying-glass-plus mr-1 text-brand-red"></i> Click to Zoom</span>
                     </div>
                 </div>
                 <div class="space-y-1">
-                    <span class="text-[10px] font-bold text-cyan-400 tracking-wider uppercase">PREMIUM PRINT SOLUTIONS</span>
+                    <span class="text-[10px] font-bold text-white tracking-wider uppercase">PREMIUM PRINT SOLUTIONS</span>
                     <h2 id="featuredTitleDisplay" class="text-lg font-bold text-white truncate">Vehicle Wraps, Banners & Logo Stitch</h2>
                     <div class="flex items-center justify-between pt-1">
-                        <span class="text-xs text-gray-300"><i class="fa-solid fa-location-dot text-brand-accent"></i> Falmouth, Jamaica</span>
-                        <span class="text-xs font-bold text-brand-accent">Knockford Express</span>
+                        <span class="text-xs text-white/90"><i class="fa-solid fa-location-dot text-brand-red"></i> Falmouth, Jamaica</span>
+                        <span class="text-xs font-bold text-white">Knutskford Express</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Products Catalog Section with Up To 10 Images Per Category -->
-    <section id="products" class="px-4 lg:px-12 py-16 border-t border-cyan-500/20 bg-brand-dark/60">
+    <!-- Products Catalog Section -->
+    <section id="products" class="px-4 lg:px-12 py-16 border-t-2 border-brand-navy/20 bg-brand-navy text-white">
         <div class="flex flex-col md:flex-row items-start md:items-end justify-between mb-6 gap-4">
             <div>
-                <span class="text-xs font-bold text-cyan-400 tracking-widest uppercase">Explore Up To 10 Images Per Section</span>
+                <span class="text-xs font-bold text-white/80 tracking-widest uppercase">Explore Up To 10 Images Per Section</span>
                 <h2 class="text-3xl lg:text-4xl font-extrabold text-white mt-1">
-                    PRINTING <span class="text-cyan-400">CATALOG</span>
+                    PRINTING <span class="text-brand-red">CATALOG</span>
                 </h2>
-                <p class="text-sm text-gray-400 mt-1">Select a category below or scroll horizontally. Click any product image to zoom and scroll.</p>
+                <p class="text-sm text-white/90 mt-1">Select a category below or scroll horizontally. Click any product image to zoom and scroll.</p>
             </div>
             
             <div class="flex items-center gap-3">
-                <button id="scrollLeftBtn" class="w-11 h-11 rounded-2xl glass-card flex items-center justify-center text-cyan-400 hover:bg-cyan-500 hover:text-black transition shadow-lg">
+                <button id="scrollLeftBtn" class="w-11 h-11 rounded-2xl bg-brand-red text-white flex items-center justify-center hover:bg-white hover:text-brand-navy transition shadow-lg border border-white">
                     <i class="fa-solid fa-arrow-left"></i>
                 </button>
-                <button id="scrollRightBtn" class="w-11 h-11 rounded-2xl glass-card flex items-center justify-center text-cyan-400 hover:bg-cyan-500 hover:text-black transition shadow-lg">
+                <button id="scrollRightBtn" class="w-11 h-11 rounded-2xl bg-brand-red text-white flex items-center justify-center hover:bg-white hover:text-brand-navy transition shadow-lg border border-white">
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
@@ -343,12 +383,12 @@
 
         <!-- Category Selector Tabs -->
         <div class="flex flex-wrap gap-2 mb-6">
-            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-cyan-500 text-black border border-cyan-400 transition" data-cat="All">All Categories</button>
-            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-gray-300 border border-cyan-500/30 transition" data-cat="Vehicle Wraps">Vehicle Wraps (10)</button>
-            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-gray-300 border border-cyan-500/30 transition" data-cat="Logo Stitch">Logo Stitch (10)</button>
-            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-gray-300 border border-cyan-500/30 transition" data-cat="T-Shirts">T-Shirts (10)</button>
-            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-gray-300 border border-cyan-500/30 transition" data-cat="Signs">Signs (10)</button>
-            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-gray-300 border border-cyan-500/30 transition" data-cat="Prints">Prints (10)</button>
+            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-red text-white border border-white transition" data-cat="All">All Categories</button>
+            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Vehicle Wraps">Vehicle Wraps (10)</button>
+            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Logo Stitch">Logo Stitch (10)</button>
+            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="T-Shirts">T-Shirts (10)</button>
+            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Signs">Signs (10)</button>
+            <button class="cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition" data-cat="Prints">Prints (10)</button>
         </div>
 
         <!-- Horizontal Smooth Scrolling Container -->
@@ -358,106 +398,111 @@
     </section>
 
     <!-- Custom Order & Bank Transfer Section -->
-    <section id="order" class="px-4 lg:px-12 py-20 border-t border-cyan-500/20 relative">
+    <section id="order" class="px-4 lg:px-12 py-20 border-t-2 border-brand-navy/20 relative bg-brand-yellow">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12 space-y-2">
-                <span class="text-xs font-bold text-brand-accent tracking-widest uppercase">Secure Bank Transfer & Direct Upload</span>
-                <h2 class="text-3xl lg:text-5xl font-black text-white">PLACE YOUR <span class="text-cyan-400">ORDER ONLINE</span></h2>
-                <p class="text-gray-400 text-sm max-w-xl mx-auto">Select your product, make a bank transfer, and upload your payment receipt below.</p>
+                <span class="text-xs font-bold text-brand-navy tracking-widest uppercase">Secure Bank Transfer & Direct Upload</span>
+                <h2 class="text-3xl lg:text-5xl font-black text-brand-navy">PLACE YOUR <span class="text-brand-red">ORDER ONLINE</span></h2>
+                <p class="text-brand-navy text-sm font-semibold max-w-xl mx-auto">Select your product, make a bank transfer, and upload your payment receipt below.</p> 
             </div>
 
-            <!-- Hidden Container for Order Form & Bank Info -->
+            <!-- Container for Order Form & Bank Info -->
             <div id="orderFormContainer" class="hidden">
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <!-- Bank Info -->
-                    <div class="glass-card p-6 rounded-3xl border border-cyan-500/30 flex flex-col justify-between space-y-6">
+                    <div class="glass-card p-6 rounded-3xl flex flex-col justify-between space-y-6">
                         <div>
                             <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 rounded-xl bg-brand-accent/20 text-brand-accent flex items-center justify-center font-bold text-lg">
+                                <div class="w-10 h-10 rounded-xl bg-brand-red text-white flex items-center justify-center font-bold text-lg border border-white">
                                     <i class="fa-solid fa-landmark"></i>
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-white text-base">Bank Details</h3>
-                                    <p class="text-xs text-gray-400">Transfer funds prior to submitting</p>
+                                    <p class="text-xs text-white/80">Transfer funds prior to submitting</p>
                                 </div>
                             </div>
 
-                            <div class="space-y-3 text-xs bg-brand-dark/70 p-4 rounded-2xl border border-cyan-500/20">
+                            <div class="space-y-3 text-xs bg-brand-dark/90 p-4 rounded-2xl border border-white/40">
                                 <div>
-                                    <p class="text-gray-400 uppercase font-semibold">Bank Name:</p>
+                                    <p class="text-white/70 uppercase font-semibold">Bank Name:</p>
                                     <p class="font-bold text-white text-sm">National Commercial Bank (NCB)</p>
                                 </div>
                                 <div>
-                                    <p class="text-gray-400 uppercase font-semibold">Account Name:</p>
-                                    <p class="font-bold text-cyan-300 text-sm">Limitless Designz & Printing Ltd</p>
+                                    <p class="text-white/70 uppercase font-semibold">Account Name:</p>
+                                    <p class="font-bold text-white text-sm">Limitless Designz & Printing Ltd</p>
                                 </div>
                                 <div>
-                                    <p class="text-gray-400 uppercase font-semibold">Account Number:</p>
-                                    <p class="font-bold text-brand-accent text-sm tracking-wider">305 489 112</p>
+                                    <p class="text-white/70 uppercase font-semibold">Account Number:</p>
+                                    <p class="font-bold text-white text-sm tracking-wider">305 489 112</p>
                                 </div>
                                 <div>
-                                    <p class="text-gray-400 uppercase font-semibold">Branch:</p>
+                                    <p class="text-white/70 uppercase font-semibold">Branch:</p>
                                     <p class="font-bold text-white">Falmouth, Trelawny</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="p-4 rounded-2xl bg-cyan-950/50 border border-cyan-500/20 space-y-2">
-                            <p class="text-xs font-bold text-cyan-400 flex items-center gap-2">
-                                <i class="fa-solid fa-truck-fast"></i> Knockford Express Shipping
+                        <div class="p-4 rounded-2xl bg-brand-royal/80 border border-white/40 space-y-2">
+                            <p class="text-xs font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-truck-fast text-brand-red"></i> Knutskford Express Shipping
                             </p>
-                            <p class="text-xs text-gray-300">All orders are securely packaged and shipped island-wide via Knockford Express.</p>
+                            <p class="text-xs text-white/90">All orders are securely packaged and shipped island-wide via Knutskford Express.</p>
                         </div>
                     </div>
 
-                    <!-- Order Checkout Form -->
-                    <div class="lg:col-span-2 glass-card p-8 rounded-3xl border border-cyan-500/30">
-                        <form id="customerOrderForm" class="space-y-6">
+                    <!-- Order Checkout Form with Formspree Integration -->
+                    <div class="lg:col-span-2 glass-card p-8 rounded-3xl">
+                        <form id="customerOrderForm" action="https://formspree.io/f/myezrykn" method="POST" enctype="multipart/form-data" class="space-y-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-300 mb-2">Full Name / Business Name *</label>
-                                    <input type="text" id="orderName" required placeholder="e.g. John Doe / Drug Care Pharmacy" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
+                                    <label class="block text-xs font-bold text-white mb-2">Full Name / Business Name *</label>
+                                    <input type="text" name="name" id="orderName" required placeholder="e.g. John Doe / Drug Care Pharmacy" class="w-full bg-brand-dark border border-white/40 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition">
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-300 mb-2">Phone Number / WhatsApp *</label>
-                                    <input type="tel" id="orderPhone" required placeholder="e.g. (876) 555-0199" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
+                                    <label class="block text-xs font-bold text-white mb-2">Phone Number / WhatsApp *</label>
+                                    <input type="tel" name="phone" id="orderPhone" required placeholder="e.g. (876)-370-2108" class="w-full bg-brand-dark border border-white/40 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition">
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-xs font-bold text-gray-300 mb-2">Select Print Product *</label>
-                                    <select id="orderProductSelect" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
+                                    <label class="block text-xs font-bold text-white mb-2">Email Address *</label>
+                                    <input type="email" name="email" id="orderEmail" required placeholder="limitless4659@gmail.com" class="w-full bg-brand-dark border border-white/40 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-white mb-2">Select Print Product *</label>
+                                    <select name="product" id="orderProductSelect" class="w-full bg-brand-dark border border-white/40 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition">
                                         <!-- Populated dynamically -->
                                     </select>
                                 </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-gray-300 mb-2">Quantity / Dimensions *</label>
-                                    <input type="text" id="orderQty" required placeholder="e.g. 500 T-Shirts or 3x6 ft Banner" class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition">
-                                </div>
                             </div>
 
                             <div>
-                                <label class="block text-xs font-bold text-gray-300 mb-2">Delivery Address (Shipped via Knockford Express) *</label>
-                                <textarea id="orderAddress" rows="2" required placeholder="Enter full delivery parish & address in Jamaica..." class="w-full bg-brand-dark border border-cyan-500/30 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-cyan-400 transition"></textarea>
+                                <label class="block text-xs font-bold text-white mb-2">Quantity / Dimensions *</label>
+                                <input type="text" name="quantity" id="orderQty" required placeholder="e.g. 500 T-Shirts or 3x6 ft Banner" class="w-full bg-brand-dark border border-white/40 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition">
                             </div>
 
                             <div>
-                                <label class="block text-xs font-bold text-gray-300 mb-2">Upload Payment Receipt Screenshot/Image *</label>
-                                <div class="relative border-2 border-dashed border-cyan-500/40 rounded-2xl p-6 text-center hover:border-cyan-400 transition bg-brand-dark/50">
-                                    <input type="file" id="orderReceiptFile" accept="image/*,application/pdf" required class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
+                                <label class="block text-xs font-bold text-white mb-2">Delivery Address (Shipped via Knutskford Express) *</label>
+                                <textarea name="address" id="orderAddress" rows="2" required placeholder="Enter full delivery parish & address in Jamaica..." class="w-full bg-brand-dark border border-white/40 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-white transition"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-white mb-2">Upload Payment Receipt Screenshot/Image *</label>
+                                <div class="relative border-2 border-dashed border-white/60 rounded-2xl p-6 text-center hover:border-white transition bg-brand-dark/50">
+                                    <input type="file" name="receipt" id="orderReceiptFile" accept="image/*,application/pdf" required class="absolute inset-0 opacity-0 cursor-pointer w-full h-full">
                                     <div id="fileUploadPrompt" class="space-y-2">
-                                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-cyan-400"></i>
-                                        <p class="text-xs text-gray-300"><span class="font-bold text-cyan-400">Click to upload image</span> or receipt file</p>
-                                        <p class="text-[10px] text-gray-500">PNG, JPG, PDF up to 10MB</p>
+                                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-brand-red"></i>
+                                        <p class="text-xs text-white"><span class="font-bold text-white">Click to upload image</span> or receipt file</p>
+                                        <p class="text-[10px] text-white/80">PNG, JPG, PDF up to 10MB</p>
                                     </div>
-                                    <div id="fileSelectedDisplay" class="hidden text-xs text-brand-accent font-bold flex items-center justify-center gap-2">
+                                    <div id="fileSelectedDisplay" class="hidden text-xs text-white font-bold flex items-center justify-center gap-2">
                                         <i class="fa-solid fa-circle-check text-green-400"></i> <span id="fileNameText">Receipt attached successfully</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-400 text-black font-black text-base glow-btn flex items-center justify-center gap-3">
+                            <button type="submit" class="w-full py-4 rounded-2xl bg-brand-red hover:bg-red-600 text-white font-black text-base glow-btn flex items-center justify-center gap-3 border border-white">
                                 <i class="fa-solid fa-paper-plane"></i> Submit Order & Send Receipt 
                             </button>
                         </form>
@@ -468,56 +513,56 @@
     </section>
 
     <!-- Shipping Section -->
-    <section id="shipping" class="px-4 lg:px-12 py-16 border-t border-cyan-500/20 bg-brand-dark/80">
-        <div class="max-w-4xl mx-auto glass-card p-8 rounded-3xl border border-cyan-500/30 flex flex-col md:flex-row items-center gap-8">
-            <div class="w-20 h-20 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-4xl shrink-0 shadow-lg">
-                <i class="fa-solid fa-truck-fast"></i>
+    <section id="shipping" class="px-4 lg:px-12 py-16 border-t-2 border-brand-navy/20 bg-brand-navy text-white">
+        <div class="max-w-4xl mx-auto glass-card p-8 rounded-3xl flex flex-col md:flex-row items-center gap-8">
+            <div class="w-20 h-20 rounded-2xl bg-white overflow-hidden flex items-center justify-center shrink-0 shadow-lg p-2 border-2 border-brand-red">
+                <img src="knutsksford logo.jpeg" onerror="this.src='knutsksford_logo.png'" alt="Knutsk Ford Express Logo" class="w-full h-full object-contain">
             </div>
             <div class="space-y-3">
-                <span class="text-xs font-bold text-cyan-400 tracking-wider uppercase">Island-Wide Logistics</span>
-                <h3 class="text-2xl font-black text-white">Fast Shipment via Knockford Express</h3>
-                <p class="text-sm text-gray-300 leading-relaxed font-light">
-                    Every print product ordered from Limitless Designz & Printing Ltd is securely packed and dispatched island-wide through <strong class="text-brand-accent font-semibold">Knockford Express</strong> courier service. Customers receive prompt tracking and delivery right to their doorsteps or businesses.
+                <span class="text-xs font-bold text-white/80 tracking-wider uppercase">Island-Wide Logistics</span>
+                <h3 class="text-2xl font-black text-white">Fast Shipment via Knutskford Express</h3>
+                <p class="text-sm text-white/90 leading-relaxed font-light">
+                    Every print product ordered from Limitless Designz & Printing Ltd is securely packed and dispatched island-wide through <strong class="text-white font-semibold">Knutskford Express</strong> courier service. Customers receive prompt tracking and delivery right to their doorsteps or businesses.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="px-4 lg:px-12 py-12 border-t border-cyan-500/20 bg-brand-dark text-center space-y-4">
+    <footer class="px-4 lg:px-12 py-12 border-t-4 border-brand-red bg-brand-navy text-center space-y-4 text-white">
         <div class="flex items-center justify-center gap-3">
-            <div class="w-8 h-8 rounded-full border border-brand-accent overflow-hidden bg-brand-card flex items-center justify-center">
-                <img src="logo.png" onerror="this.src='https://placehold.co/100x100/132742/00f0ff?text=LD'" alt="Logo" class="w-full h-full object-cover">
+            <div class="w-8 h-8 rounded-full border border-white overflow-hidden bg-brand-card flex items-center justify-center">
+                <img src="logo.png" onerror="this.src='https://placehold.co/100x100/0020FF/FFFFFF?text=LD'" alt="Logo" class="w-full h-full object-cover">
             </div>
             <span class="font-extrabold text-sm tracking-widest text-white">LIMITLESS DESIGNZ & PRINTING LTD</span>
         </div>
-        <p class="text-xs text-gray-400">24 Tharpe Street, Falmouth, Jamaica • Call: <a href="tel:8766174659" class="hover:text-cyan-400 transition">(876) 617-4659</a> • WhatsApp: <a href="https://wa.me/18763702108" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition">(876) 370-2108</a></p>
-        <p class="text-[10px] text-gray-600">© 2026 Limitless Designz & Printing Ltd. All Rights Reserved. Powered by 3D Holographic Web Engine.</p>
+        <p class="text-xs text-white/80">24 Tharpe Street, Falmouth, Jamaica • Call: <a href="tel:8766174659" class="hover:text-brand-red transition">(876) 617-4659</a> • WhatsApp: <a href="https://wa.me/18763702108" target="_blank" rel="noopener noreferrer" class="hover:text-brand-red transition">(876) 370-2108</a></p>
+        <p class="text-[10px] text-white/60">© 2026 Limitless Designz & Printing Ltd. All Rights Reserved. Powered by 3D Holographic Web Engine.</p>
     </footer>
 
-    <!-- Image Lightbox Zoom Modal (For scrolling and viewing images) -->
+    <!-- Image Lightbox Zoom Modal -->
     <div id="imageLightboxModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col items-center justify-center p-4">
-        <button id="closeLightboxBtn" class="absolute top-6 right-6 text-white text-3xl hover:text-cyan-400 transition p-2">
+        <button id="closeLightboxBtn" class="absolute top-6 right-6 text-white text-3xl hover:text-brand-red transition p-2">
             <i class="fa-solid fa-xmark"></i>
         </button>
         <div class="max-w-4xl max-h-[80vh] w-full flex items-center justify-center p-2">
-            <img id="lightboxImg" src="#" alt="Product Zoom" class="max-w-full max-h-[75vh] object-contain rounded-2xl border-2 border-cyan-500/50 shadow-2xl">
+            <img id="lightboxImg" src="#" alt="Product Zoom" class="max-w-full max-h-[75vh] object-contain rounded-2xl border-2 border-white shadow-2xl">
         </div>
         <div class="mt-4 text-center space-y-1">
             <h4 id="lightboxTitle" class="text-lg font-bold text-white">Product Name</h4>
-            <p id="lightboxCategory" class="text-xs text-cyan-400 font-semibold"></p>
+            <p id="lightboxCategory" class="text-xs text-white/80 font-semibold"></p>
         </div>
     </div>
 
     <!-- Notification Modal -->
     <div id="notificationModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-card max-w-md w-full p-8 rounded-3xl border border-cyan-500/40 text-center space-y-4 shadow-2xl">
-            <div id="modalIcon" class="w-16 h-16 mx-auto rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-3xl">
+        <div class="glass-card max-w-md w-full p-8 rounded-3xl text-center space-y-4 shadow-2xl">
+            <div id="modalIcon" class="w-16 h-16 mx-auto rounded-2xl bg-brand-red text-white flex items-center justify-center text-3xl border border-white">
                 <i class="fa-solid fa-check"></i>
             </div>
             <h3 id="modalTitle" class="text-2xl font-black text-white">Success!</h3>
-            <p id="modalMessage" class="text-sm text-gray-300">Action completed successfully.</p>
-            <button id="modalCloseBtn" class="w-full py-3 rounded-2xl bg-cyan-500 text-black font-extrabold text-sm hover:bg-cyan-400 transition shadow-lg">
+            <p id="modalMessage" class="text-sm text-white/90">Action completed successfully.</p>
+            <button id="modalCloseBtn" class="w-full py-3 rounded-2xl bg-brand-red text-white font-extrabold text-sm hover:bg-red-600 transition shadow-lg border border-white">
                 Continue
             </button>
         </div>
@@ -525,7 +570,6 @@
 
     <!-- Application JavaScript Logic -->
     <script>
-        // Helper function to show form when requested
         function revealOrderForm() {
             const container = document.getElementById('orderFormContainer');
             if (container) {
@@ -533,7 +577,6 @@
             }
         }
 
-        // Generate initial default dataset holding up to 10 images per category
         function generateInitialProducts() {
             const categories = [
                 { name: 'Vehicle Wraps', prefix: 'Vehicle Wrap' },
@@ -551,7 +594,7 @@
                         name: `${cat.prefix} #${i}`,
                         price: i % 2 === 0 ? '$12,500 JMD' : '$8,500 JMD',
                         category: cat.name,
-                        img: `https://placehold.co/600x400/132742/00f0ff?text=${encodeURIComponent(cat.prefix + ' ' + i)}`
+                        img: `https://placehold.co/600x400/0020FF/FFFFFF?text=${encodeURIComponent(cat.prefix + ' ' + i)}`
                     });
                 }
             });
@@ -562,7 +605,7 @@
         let orders = JSON.parse(localStorage.getItem('limitless_orders')) || [];
         let featuredData = JSON.parse(localStorage.getItem('limitless_featured')) || {
             title: 'Vehicle Wraps, Banners & Logo Stitch',
-            img: 'https://placehold.co/600x400/132742/ffd700?text=Featured+Showcase'
+            img: 'https://placehold.co/600x400/0020FF/FFFFFF?text=Featured+Showcase'
         };
 
         let currentActiveCategory = 'All';
@@ -579,7 +622,7 @@
             localStorage.setItem('limitless_featured', JSON.stringify(featuredData));
         }
 
-        // Three.js 3D Background Animation
+        // Three.js 3D Background Particle Flare Animation
         function initThreeBackground() {
             const canvas = document.getElementById('bgCanvas');
             const scene = new THREE.Scene();
@@ -588,20 +631,34 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 600;
+            // Dual-color 3D particles (Blue & Red Flares against Yellow canvas)
+            const particlesCount = 700;
             const posArray = new Float32Array(particlesCount * 3);
+            const colorArray = new Float32Array(particlesCount * 3);
 
-            for(let i = 0; i < particlesCount * 3; i++) {
-                posArray[i] = (Math.random() - 0.5) * 35;
+            const colorBlue = new THREE.Color(0x0020FF);
+            const colorRed = new THREE.Color(0xE50914);
+
+            for(let i = 0; i < particlesCount; i++) {
+                posArray[i * 3] = (Math.random() - 0.5) * 35;
+                posArray[i * 3 + 1] = (Math.random() - 0.5) * 35;
+                posArray[i * 3 + 2] = (Math.random() - 0.5) * 35;
+
+                const mixedColor = Math.random() > 0.4 ? colorBlue : colorRed;
+                colorArray[i * 3] = mixedColor.r;
+                colorArray[i * 3 + 1] = mixedColor.g;
+                colorArray[i * 3 + 2] = mixedColor.b;
             }
 
+            const particlesGeometry = new THREE.BufferGeometry();
             particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+
             const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.05,
-                color: 0x00f0ff,
+                size: 0.07,
+                vertexColors: true,
                 transparent: true,
-                opacity: 0.7
+                opacity: 0.85
             });
 
             const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
@@ -616,10 +673,10 @@
 
             function animate() {
                 requestAnimationFrame(animate);
-                particlesMesh.rotation.y += 0.001;
-                particlesMesh.rotation.x += 0.0005;
-                camera.position.x += (mouseX * 0.8 - camera.position.x) * 0.05;
-                camera.position.y += (-mouseY * 0.8 - camera.position.y) * 0.05;
+                particlesMesh.rotation.y += 0.0012;
+                particlesMesh.rotation.x += 0.0006;
+                camera.position.x += (mouseX * 0.9 - camera.position.x) * 0.05;
+                camera.position.y += (-mouseY * 0.9 - camera.position.y) * 0.05;
                 renderer.render(scene, camera);
             }
             animate();
@@ -631,13 +688,11 @@
             });
         }
 
-        // Render Hero Featured Showcase Section
         function renderFeaturedShowcase() {
             document.getElementById('featuredTitleDisplay').textContent = featuredData.title;
             document.getElementById('featuredImgDisplay').src = featuredData.img;
         }
 
-        // Render Product Catalog & Select Options
         function renderProducts(filterCat = 'All') {
             currentActiveCategory = filterCat;
             const container = document.getElementById('productGridContainer');
@@ -653,51 +708,48 @@
                 : products.filter(p => p.category === filterCat);
 
             if (filteredProds.length === 0) {
-                container.innerHTML = `<p class="text-xs text-gray-400 py-8 italic">No products uploaded in ${filterCat} yet.</p>`;
+                container.innerHTML = `<p class="text-xs text-white/80 py-8 italic">No products uploaded in ${filterCat} yet.</p>`;
             }
 
             filteredProds.forEach(prod => {
-                // 1. Horizontal Scroll Card
                 const card = document.createElement('div');
-                card.className = 'glass-card min-w-[270px] sm:min-w-[300px] max-w-[300px] rounded-3xl p-4 flex flex-col justify-between shrink-0 border border-cyan-500/30 transition duration-300 hover:-translate-y-2';
+                card.className = 'glass-card min-w-[270px] sm:min-w-[300px] max-w-[300px] rounded-3xl p-4 flex flex-col justify-between shrink-0 transition duration-300 hover:-translate-y-2';
                 card.innerHTML = `
                     <div>
-                        <div class="w-full h-44 rounded-2xl overflow-hidden bg-brand-royal mb-3 relative group cursor-pointer" onclick="openLightbox('${encodeURIComponent(prod.img)}', '${encodeURIComponent(prod.name)}', '${encodeURIComponent(prod.category)}')">
+                        <div class="w-full h-44 rounded-2xl overflow-hidden bg-brand-royal mb-3 relative group cursor-pointer border border-white/30" onclick="openLightbox('${encodeURIComponent(prod.img)}', '${encodeURIComponent(prod.name)}', '${encodeURIComponent(prod.category)}')">
                             <img src="${prod.img}" alt="${prod.name}" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
-                            <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-brand-dark/85 backdrop-blur-md text-[10px] font-bold text-cyan-400 border border-cyan-500/30">
+                            <span class="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-brand-dark/90 backdrop-blur-md text-[10px] font-bold text-white border border-white/40">
                                 ${prod.category}
                             </span>
                             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-xs font-bold gap-2">
-                                <i class="fa-solid fa-magnifying-glass-plus"></i> Zoom Image
+                                <i class="fa-solid fa-magnifying-glass-plus text-brand-red"></i> Zoom Image
                             </div>
                         </div>
                         <h3 class="font-bold text-base text-white mb-1 truncate">${prod.name}</h3>
-                        <p class="text-brand-accent font-extrabold text-sm">${prod.price}</p>
+                        <p class="text-white font-extrabold text-sm">${prod.price}</p>
                     </div>
-                    <button onclick="selectProductForOrder('${prod.name}')" class="mt-3 w-full py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 hover:text-black border border-cyan-500/40 text-cyan-300 font-bold text-xs transition flex items-center justify-center gap-2">
+                    <button onclick="selectProductForOrder('${prod.name}')" class="mt-3 w-full py-2 rounded-xl bg-brand-red hover:bg-red-600 text-white font-bold text-xs transition flex items-center justify-center gap-2 shadow border border-white">
                         <i class="fa-solid fa-cart-plus"></i> Order Now
                     </button>
                 `;
                 container.appendChild(card);
 
-                // 2. Select Option in Order Form
                 const option = document.createElement('option');
                 option.value = `${prod.name} (${prod.price})`;
                 option.textContent = `${prod.name} - ${prod.price}`;
                 selectEl.appendChild(option);
 
-                // 3. Admin Product Management Item
                 const adminItem = document.createElement('div');
-                adminItem.className = 'flex items-center justify-between p-2.5 rounded-xl bg-brand-card border border-cyan-500/20 text-xs';
+                adminItem.className = 'flex items-center justify-between p-2.5 rounded-xl bg-brand-card border border-white/30 text-xs';
                 adminItem.innerHTML = `
                     <div class="flex items-center gap-3 overflow-hidden">
                         <img src="${prod.img}" class="w-9 h-9 rounded-lg object-cover shrink-0">
                         <div class="truncate">
                             <p class="font-bold text-white truncate">${prod.name}</p>
-                            <p class="text-brand-accent text-[11px]">${prod.category} • ${prod.price}</p>
+                            <p class="text-white/80 text-[11px]">${prod.category} • ${prod.price}</p>
                         </div>
                     </div>
-                    <button onclick="deleteProduct('${prod.id}')" class="text-red-400 hover:text-red-300 p-2"><i class="fa-solid fa-trash"></i></button>
+                    <button onclick="deleteProduct('${prod.id}')" class="text-red-300 hover:text-red-100 p-2"><i class="fa-solid fa-trash"></i></button>
                 `;
                 adminListEl.appendChild(adminItem);
             });
@@ -728,29 +780,29 @@
             renderProducts(currentActiveCategory);
         };
 
-        // Render Admin Orders & Receipts
         function renderOrders() {
             const listEl = document.getElementById('adminOrdersList');
             listEl.innerHTML = '';
             if (orders.length === 0) {
-                listEl.innerHTML = `<p class="text-xs text-gray-500 italic text-center py-4">No customer orders received yet.</p>`;
+                listEl.innerHTML = `<p class="text-xs text-white/80 italic text-center py-4">No customer orders received yet.</p>`;
                 return;
             }
             orders.forEach((ord, index) => {
                 const item = document.createElement('div');
-                item.className = 'p-3 rounded-xl bg-brand-card border border-cyan-500/30 space-y-1.5 text-xs';
+                item.className = 'p-3 rounded-xl bg-brand-card border border-white/40 space-y-1.5 text-xs';
                 item.innerHTML = `
                     <div class="flex justify-between items-center">
-                        <span class="font-bold text-cyan-400">Order #${index+1} - ${ord.name}</span>
-                        <span class="text-gray-400 text-[10px]">${ord.date}</span>
+                        <span class="font-bold text-white">Order #${index+1} - ${ord.name}</span>
+                        <span class="text-white/70 text-[10px]">${ord.date}</span>
                     </div>
-                    <p class="text-white"><strong class="text-gray-400">Item:</strong> ${ord.product}</p>
-                    <p class="text-white"><strong class="text-gray-400">Qty/Specs:</strong> ${ord.qty}</p>
-                    <p class="text-white"><strong class="text-gray-400">Address:</strong> ${ord.address}</p>
-                    <p class="text-brand-accent"><strong class="text-gray-400">Phone:</strong> ${ord.phone}</p>
-                    <div class="pt-1.5 border-t border-cyan-500/20 flex items-center justify-between">
-                        <span class="text-green-400 font-semibold text-[11px]"><i class="fa-solid fa-file-invoice"></i> Receipt Attached</span>
-                        <button onclick="removeOrder(${index})" class="text-red-400 hover:text-red-300">Delete</button>
+                    <p class="text-white"><strong class="text-white/70">Email:</strong> ${ord.email || 'N/A'}</p>
+                    <p class="text-white"><strong class="text-white/70">Item:</strong> ${ord.product}</p>
+                    <p class="text-white"><strong class="text-white/70">Qty/Specs:</strong> ${ord.qty}</p>
+                    <p class="text-white"><strong class="text-white/70">Address:</strong> ${ord.address}</p>
+                    <p class="text-white"><strong class="text-white/70">Phone:</strong> ${ord.phone}</p>
+                    <div class="pt-1.5 border-t border-white/30 flex items-center justify-between">
+                        <span class="text-green-300 font-semibold text-[11px]"><i class="fa-solid fa-file-invoice"></i> Receipt Attached</span>
+                        <button onclick="removeOrder(${index})" class="text-red-300 hover:text-red-100">Delete</button>
                     </div>
                 `;
                 listEl.appendChild(item);
@@ -763,14 +815,12 @@
             renderOrders();
         };
 
-        // Initialize Application Events
         window.addEventListener('DOMContentLoaded', () => {
             initThreeBackground();
             renderFeaturedShowcase();
             renderProducts();
             renderOrders();
 
-            // Horizontal Scroll Control Buttons
             const scrollContainer = document.getElementById('productGridContainer');
             document.getElementById('scrollLeftBtn').addEventListener('click', () => {
                 scrollContainer.scrollBy({ left: -320, behavior: 'smooth' });
@@ -779,18 +829,16 @@
                 scrollContainer.scrollBy({ left: 320, behavior: 'smooth' });
             });
 
-            // Category Filter Button Clicks
             document.querySelectorAll('.cat-filter-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     document.querySelectorAll('.cat-filter-btn').forEach(b => {
-                        b.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-gray-300 border border-cyan-500/30 transition';
+                        b.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-card hover:bg-brand-royal text-white border border-white/40 transition';
                     });
-                    e.currentTarget.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-cyan-500 text-black border border-cyan-400 transition';
+                    e.currentTarget.className = 'cat-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-brand-red text-white border border-white transition';
                     renderProducts(e.currentTarget.dataset.cat);
                 });
             });
 
-            // Lightbox Modal Zoom Trigger on Featured Image
             document.getElementById('featuredImgWrapper').addEventListener('click', () => {
                 openLightbox(featuredData.img, featuredData.title, 'Hero Featured Showcase');
             });
@@ -799,7 +847,6 @@
                 document.getElementById('imageLightboxModal').classList.add('hidden');
             });
 
-            // Mobile Navigation & Admin Drawer Controls
             const hamburgerBtn = document.getElementById('hamburgerBtn');
             const drawerMenu = document.getElementById('drawerMenu');
             const drawerOverlay = document.getElementById('drawerOverlay');
@@ -825,15 +872,24 @@
                 link.addEventListener('click', closeDrawer);
             });
 
-            // Admin Passcode Check
             const adminLoginBtn = document.getElementById('adminLoginBtn');
             const adminPasscode = document.getElementById('adminPasscode');
             const authErrorMsg = document.getElementById('authErrorMsg');
             const adminAuthSection = document.getElementById('adminAuthSection');
             const adminMainContent = document.getElementById('adminMainContent');
 
-            adminLoginBtn.addEventListener('click', () => {
-                if (adminPasscode.value === '1234') {
+            async function hashPasscode(passcode) {
+                const msgBuffer = new TextEncoder().encode(passcode);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+
+            adminLoginBtn.addEventListener('click', async () => {
+                const targetHash = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4"; // SHA-256 for 1234
+                const inputHash = await hashPasscode(adminPasscode.value);
+
+                if (inputHash === targetHash) {
                     adminAuthSection.classList.add('hidden');
                     adminMainContent.classList.remove('hidden');
                 } else {
@@ -841,7 +897,6 @@
                 }
             });
 
-            // Admin Tab Toggles
             const tabProdBtn = document.getElementById('tabProductsBtn');
             const tabFeatBtn = document.getElementById('tabFeaturedBtn');
             const tabOrdBtn = document.getElementById('tabOrdersBtn');
@@ -850,40 +905,38 @@
             const secOrd = document.getElementById('adminOrdersSection');
 
             tabProdBtn.addEventListener('click', () => {
-                tabProdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg bg-cyan-500 text-black transition shadow';
-                tabFeatBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition';
-                tabOrdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition';
+                tabProdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg bg-brand-red text-white transition shadow';
+                tabFeatBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-white/80 hover:text-white transition';
+                tabOrdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-white/80 hover:text-white transition';
                 secProd.classList.remove('hidden');
                 secFeat.classList.add('hidden');
                 secOrd.classList.add('hidden');
             });
 
             tabFeatBtn.addEventListener('click', () => {
-                tabFeatBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg bg-cyan-500 text-black transition shadow';
-                tabProdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition';
-                tabOrdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition';
+                tabFeatBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg bg-brand-red text-white transition shadow';
+                tabProdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-white/80 hover:text-white transition';
+                tabOrdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-white/80 hover:text-white transition';
                 secFeat.classList.remove('hidden');
                 secProd.classList.add('hidden');
                 secOrd.classList.add('hidden');
             });
 
             tabOrdBtn.addEventListener('click', () => {
-                tabOrdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg bg-cyan-500 text-black transition shadow';
-                tabProdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition';
-                tabFeatBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-gray-400 hover:text-white transition';
+                tabOrdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg bg-brand-red text-white transition shadow';
+                tabProdBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-white/80 hover:text-white transition';
+                tabFeatBtn.className = 'flex-1 py-2 text-xs font-bold rounded-lg text-white/80 hover:text-white transition';
                 secOrd.classList.remove('hidden');
                 secProd.classList.add('hidden');
                 secFeat.classList.add('hidden');
                 renderOrders();
             });
 
-            // Client Image Upload Handling (Add Product)
             document.getElementById('addProductForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const fileInput = document.getElementById('newProdImgFile');
                 const category = document.getElementById('newProdCategory').value;
 
-                // Check limit (Max 10 per section)
                 const categoryCount = products.filter(p => p.category === category).length;
                 if (categoryCount >= 10) {
                     showModal('Category Limit Reached', `The ${category} category already holds 10 images. Please delete an older product in that category first.`);
@@ -910,7 +963,6 @@
                 }
             });
 
-            // Client Featured Image Upload Handling
             document.getElementById('updateFeaturedForm').addEventListener('submit', (e) => {
                 e.preventDefault();
                 const fileInput = document.getElementById('featuredImgFile');
@@ -932,7 +984,6 @@
                 }
             });
 
-            // Order Receipt Attachment Display
             const receiptFileInput = document.getElementById('orderReceiptFile');
             const filePrompt = document.getElementById('fileUploadPrompt');
             const fileDisplay = document.getElementById('fileSelectedDisplay');
@@ -946,12 +997,12 @@
                 }
             });
 
-            // Customer Order Submission
+            // Save order locally for Admin view before submitting to Formspree
             document.getElementById('customerOrderForm').addEventListener('submit', (e) => {
-                e.preventDefault();
                 const newOrder = {
                     name: document.getElementById('orderName').value,
                     phone: document.getElementById('orderPhone').value,
+                    email: document.getElementById('orderEmail').value,
                     product: document.getElementById('orderProductSelect').value,
                     qty: document.getElementById('orderQty').value,
                     address: document.getElementById('orderAddress').value,
@@ -961,15 +1012,8 @@
 
                 orders.unshift(newOrder);
                 saveOrders();
-
-                document.getElementById('customerOrderForm').reset();
-                filePrompt.classList.remove('hidden');
-                fileDisplay.classList.add('hidden');
-
-                showModal('Order Submitted!', 'Your order and payment receipt screenshot have been submitted successfully.');
             });
 
-            // Modal Trigger
             const notificationModal = document.getElementById('notificationModal');
             document.getElementById('modalCloseBtn').addEventListener('click', () => {
                 notificationModal.classList.add('hidden');
